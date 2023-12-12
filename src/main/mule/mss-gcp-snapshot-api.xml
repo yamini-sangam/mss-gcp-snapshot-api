@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:pubsub="http://www.mulesoft.org/schema/mule/pubsub"
+	xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/pubsub http://www.mulesoft.org/schema/mule/pubsub/current/mule-pubsub.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+	<flow name="gcp-create-snapshot-apiFlow" doc:id="01616b02-bb98-4c48-bf54-94c939a65ab1" >
+		<http:listener doc:name="main_http-listener" doc:id="c98f4e97-5f45-4ebf-b545-c712c4af12bb" config-ref="HTTP_Listener_config1" path="${http.path}"/>
+		<pubsub:get-snapshot snapshotName="#[attributes.queryParams.snapshot]" doc:name="Get snapshot" doc:id="17c4e875-0745-4cbd-924f-6856f2c57d70" config-ref="Google_Pub_Sub_Configuration"/>
+		<logger level="INFO" doc:name="Logger" doc:id="7d2db0b7-e571-4430-8f26-83450e07634e" message="Created Snapshot with name: #[payload.name]"/>
+		<ee:transform doc:name="Transform Message" doc:id="6ae9667a-f61f-450c-8e11-aba764e57353" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+payload]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+	</flow>
+	<flow name="gcp-create-snapshot-apiFlow1" doc:id="f160da82-e38b-4779-a45e-4661dac28dbc" >
+		<http:listener doc:name="Listener" doc:id="c29832d2-7666-493c-9036-e85e9391d558" config-ref="HTTP_Listener_config" path="/createSnapshot"/>
+		<pubsub:create-snapshot doc:name="Create snapshot" doc:id="d8d27b94-7fe1-42be-8e9a-70cd9ca06e58" config-ref="Google_Pub_Sub_Configuration" snapshotName="#[attributes.queryParams.snapshot]" subscriptionName="#[attributes.queryParams.sub]">
+			<pubsub:labels ><![CDATA[#[output application/java
+---
+{
+	"message" : "test-snapshot-demo1"
+}]]]></pubsub:labels>
+		</pubsub:create-snapshot>
+	</flow>
+</mule>

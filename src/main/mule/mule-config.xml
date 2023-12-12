@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:pubsub="http://www.mulesoft.org/schema/mule/pubsub"
+	xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/pubsub http://www.mulesoft.org/schema/mule/pubsub/current/mule-pubsub.xsd">
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="417592fe-4fb2-4770-b5dd-f81ebad903ac" >
+		<http:listener-connection host="${http.host}" port="${http.port}" />
+	</http:listener-config>
+	<http:listener-config name="HTTP_Listener_config1" doc:name="HTTP Listener config" doc:id="7867cc22-0bce-4a56-b6f6-bcf7ed0445aa" >
+		<http:listener-connection host="${http1.host}" port="${http1.port}" />
+	</http:listener-config>
+	<pubsub:config name="Google_Pub_Sub_Configuration" doc:name="Google_Pub_Sub_Configuration" doc:id="5de81604-0bd8-46ff-ba6e-c8ca8f71cfab" projectId="yamini-test-workspace" subscriptionName="projects/yamini-test-workspace/subscriptions/createSnapshot-sub" topicName="projects/yamini-test-workspace/topics/createSnapshot">
+		<pubsub:connection privateKeyId="15b9067ab152db3c2925228b51a5b255663db9a0" clientEmail="gcp-topic-sub@yamini-test-workspace.iam.gserviceaccount.com" clientId="11010664863557793891">
+			<pubsub:private-key ><![CDATA[-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDZamLXZwWNsuvW\n0kO+as/3k44n/SNc2wLUhgiQaNBU9DctoKl8Zjux/X1odYy5MhPZ0iaf5oZVgwhD\nL66RjzjZweLB9JduAWr0c42LkKSawE/WqI1Tj3juoSw2sp+fMFOadspoCe4PsadW\nFCRWsUmz6gk9sJe23g8eydEbV6qvno9BtLg6seRVGZ1/4r/XpQcaSZdz+a6fiiha\nFudkRduDEpHaMkbT4CiiG9WVvbhRAnjzIF2Q1mSNQcjbBKtBxUQ1++/wjlYAp8GP\nJXSWWNxhkZ7sCwLxu1WT39vVwnn3ED1kpvhdxOt2a96UN7ghYLTZ3k6lLmWcddIg\nCRRtXr8pAgMBAAECggEAOPcugbjdFCUKtSUvmc9bwUc4qpKhdt1tjui1irzjxTad\n1IcxkUYqIvdDqiCOqCGOYPa2pxPcI8Cq5Au0xi/MGgY6l04ydSDK+NTkA+r4rhFw\nedJ9ASVo7sFtF8HSn/+mECVK4FqltRf7u8qYQNy/7nOGS1MfVUs2k/8WGn9sWgoK\nEFM2m5SyADPVqPgWRoj+zkm+kLD5tA3MEDVD07+fPqE+d9HZA9UlTxHDaTPnyxJ1\n2eU4pHTmK5DCsmmrTyDeFsPBfdqYGaSYO+3UImXzsfjpeY3hCGX+eKL6clKSYKmj\n/9nHdaMS6jpnJLR+D51qHiARl/uyKVbnmROIGOR5ZwKBgQD+BIN/9RJO02Y1DR35\ncvXa4pUscaoU2zwB8HdbBeFeNvbW1btUkYbGLnZ4ps1HO19nZhYVru+0liuiZIaD\nCzqiIq4SYdCpZUUP24aoxm8ONSye8jT5URybKT9ke0mroP0Grup8YvdJUWMnFGfg\nm06A9hGPmpCEz+Jw6cGZsYO6fwKBgQDbHL9V2nUE7SA77V8xWhpKyHjl95soei46\nt8DePPYOLlntUUh09Wlub1YaSScgOqDit+DhKSXaOyjPyke3NdDbIqtrYTlmYn/h\nFIvmFbpo+85u3YMjVTZ7pIRZAqGVw0GyHVDbEwdpAtY7OJW5kjMQmdvSpxlCEZA+\nENHi+2qiVwKBgEFRP88jYXXLfjieCtsd6IJEST+Iase6KBAHmWladb0YPRi5FNaG\nJTXItMYJfjeW2M1pvrwMo663/rhfSQdhV85hRImNhW5JkBynwlSb0erBWZv1hBGn\n/ccYMCjSWvs7BlU1nS4m9JdxyiE+agejZ+hZXeKjSA4etod6VEIFF25ZAoGBAIFI\nlAjHLlaqx2M0qv9Gp87KPLOMBou6k75nn7BBjflOFhd152fDSeM0ZDx8P06/6R/8\n2P5htgju8SSxuOD8KvCxoy1nn2Ou6L9YzTcESQoa0XIO14qog84ugzy11bu1CvVa\nYNPyhWPLnbYxq/5jqie4cMD5gWi/Tjmg2Qaxy/hfAoGBAINqSa9riaMt0BA5zPho\nToIa/qKFMnGdfH9HnsCHYhgPzSzBvRmOOe/lnvpcCvAewUS3fyfIimfxXyjgFlvg\nD/j5qrrSVRSfzH6VmsaENtxoWd6kGWd8BdqOg6rsoDWZUR5Iyc+GgTm05icS+FXm\nUhrFpDZLbASGnhl+c98QbZQ5\n-----END PRIVATE KEY-----\n]]></pubsub:private-key>
+		</pubsub:connection>
+	</pubsub:config>
+	
+</mule>
